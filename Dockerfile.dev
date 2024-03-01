@@ -1,0 +1,14 @@
+FROM node:20.11.1-slim
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+# Copy Prisma schema and run migrations
+COPY prisma ./prisma
+COPY .env .
+#RUN npx prisma migrate dev
+
+
+CMD ["npm", "run", "dev"]

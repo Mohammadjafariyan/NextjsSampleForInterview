@@ -1,0 +1,26 @@
+{
+    "dependencies": {
+        "axios": "^1.6.7",
+        "chai": "^5.1.0",
+        "chai-http": "^4.4.0",
+        "fastify": "^4.26.1",
+        "fastify-swagger": "^5.2.0",
+        "mocha": "^10.3.0",
+        "prisma": "^5.10.2",
+        "ts-node-dev": "^2.0.0"
+    },
+    "scripts": {
+        "start": "NODE_PATH=./build node build/server.js",
+        "build": "tsc -p .",
+        "dev": "nodemon --legacy-watch"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^20.11.24",
+        "nodemon": "^3.1.0",
+        "nyc": "^15.1.0",
+        "supertest": "^6.3.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
+}
