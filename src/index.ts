@@ -1,6 +1,7 @@
 // our-first-route.js
 
 
+
 /**
  * Encapsulates the routes
  * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
