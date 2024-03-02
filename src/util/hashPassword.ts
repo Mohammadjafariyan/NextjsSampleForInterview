@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
-// Utility function to hash passwords
 
+// Utility function to hash passwords
 export async function hashPassword(password) {
     const saltRounds = 10;
 

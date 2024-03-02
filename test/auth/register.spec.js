@@ -5,6 +5,9 @@ const request = require('supertest');
 
 
 
+    /* ----------------------------------- */
+    /* register test */
+    /* ----------------------------------- */
 describe('POST /register', function() {
   it('return json response', function() {
 

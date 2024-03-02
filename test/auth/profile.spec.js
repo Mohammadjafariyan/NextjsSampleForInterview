@@ -3,25 +3,9 @@ import { hashPassword } from '../../src/util/hashPassword'
 import { fakeNewUser } from '../fake-data.provider'
 const request = require('supertest')
 
-
-
-
-it('hash tests', async () => {
-  // Make a request to the protected route without authentication
-
-  
-  console.log('--------------------------------------------------------------')
-  console.log('hash tests')
-  console.log('--------------------------------------------------------------')
-
-  expect(hashPassword("vvsodif*w3&23651"),hashPassword("vvsodif*w3&23651"))
-  expect(hashPassword("vvsodif*2378fb&23651"),hashPassword("vvsodif*2378fb&23651"))
-  expect(hashPassword("vvso23e4rynm1"),hashPassword("vvso23e4rynm1"))
-  // Verify response status code
-})
-
-
-
+/* ----------------------------------- */
+/* protection test */
+/* ----------------------------------- */
 it('should return 401 when not authenticated', async () => {
   // Make a request to the protected route without authentication
   const response = await request(app.server).get('/profile')
@@ -30,24 +14,43 @@ it('should return 401 when not authenticated', async () => {
   expect(response.status, 401)
 })
 
+/* ----------------------------------- */
+/* 1.register  */
+/* 2.login */
+/* 3.get profile */
+/* ----------------------------------- */
 describe('Profile  /profile', function () {
   it('return json response', async function () {
-
-    console.log('--------------------------------------------------------------')
+    console.log(
+      '--------------------------------------------------------------'
+    )
     console.log('profile tests')
-    console.log('--------------------------------------------------------------')
+    console.log(
+      '--------------------------------------------------------------'
+    )
 
     /* -------------------------------------------------------------- */
     /* register */
     /* -------------------------------------------------------------- */
-    let user= fakeNewUser();
+
+
+
+    
+    /* ----------------------------------- */
+    /* generate fake data */
+    /* ----------------------------------- */
+    let user = fakeNewUser()
 
     console.info('.................register.................')
     console.warn('.................register.................')
 
-    console.log(user);
+    console.log(user)
 
 
+
+    /* ----------------------------------- */
+    /* post request with fake data */
+    /* ----------------------------------- */
     let registerResponse = await request(app.server)
       .post('/register')
       .send({
