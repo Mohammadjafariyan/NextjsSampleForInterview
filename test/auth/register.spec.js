@@ -1,15 +1,39 @@
 import app from '../../server'
+import { fakeNewUser } from '../fake-data.provider';
 const request = require('supertest');
 
 
 
 
-describe('GET /', function() {
+    /* ----------------------------------- */
+    /* register test */
+    /* ----------------------------------- */
+describe('POST /register', function() {
   it('return json response', function() {
+
+
+    
+    console.log('--------------------------------------------------------------')
+    console.log('register tests')
+    console.log('--------------------------------------------------------------')
+
+    let user= fakeNewUser();
+
     return request(app.server)
-      .get('/')
+      .post('/register')
+      .send({
+        username: user.username,
+        password:user.password
+      })
       .expect(200)
       .expect('Content-Type',/json/)
-      .expect('{"hello":"world!!! thanks God"}')
+      .expect(response=>{
+
+        console.log(response.body);
+        expect(response.body.message).equal(
+          'User registered successfully'
+      )
+
+      })
   })
 })

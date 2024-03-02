@@ -1,25 +1,82 @@
-import bcrypt from 'bcrypt'
+import { PrismaClient } from '@prisma/client'
+import { hashPassword } from '../util/hashPassword'
 
-// Utility function to hash passwords
-async function hashPassword (password) {
-  const saltRounds = 10
-  return bcrypt.hash(password, saltRounds)
-}
 
+/* ----------------------------------- */
+/* register */
+/* ----------------------------------- */
 async function register (fastify: any, options: any) {
-  fastify.get('/register', async (request, reply) => {
-    const { username, password } = request.query
+    
+/* ----------------------------------- */
+/* configure posts on /register */
+/* ----------------------------------- */
+  fastify.post('/register', async (request, reply) => {
+
+    
+    /* ----------------------------------- */
+    /* get data from body  */
+    /* ----------------------------------- */
+    const { username, password } = request.body
 
     // Hash the password
     const hashedPassword = await hashPassword(password)
 
-    // In a real-world scenario, you would store the hashed password in a database
-    // instead of logging it
-    fastify.log.info(
-      `Username: ${username}, Hashed Password: ${hashedPassword}`
-    )
 
-    reply.send({ message: 'User registered successfully' })
+    
+    /* ----------------------------------- */
+    /* log in debug  */
+    /* ----------------------------------- */
+    console.log('hashing... ->',request.body.password , hashedPassword)
+
+
+  
+    /* ----------------------------------- */
+    /* db connection */
+    /* ----------------------------------- */
+    const prisma = new PrismaClient()
+
+    
+    /* ----------------------------------- */
+    /* find user for dublicate check */
+    /* ----------------------------------- */
+    let user = await prisma.user.findFirst({
+      where: { username: request.body.username  }
+      
+    })
+
+    
+    /* ----------------------------------- */
+    /* if user found return failed */
+    /* ----------------------------------- */
+    if (user) {
+      reply.send({
+        message: 'another User with the same username is exists ',
+        body: `Username: ${user.username}`
+      })
+      return
+    }
+
+    
+    /* ----------------------------------- */
+    /* if dublicate user not exists then go forward and create new user  */
+    /* ----------------------------------- */
+    user = await prisma.user.create({
+      data: {
+        username: username,
+        password: hashedPassword
+      }
+    })
+
+
+    
+    /* ----------------------------------- */
+    /* return success */
+    /* ----------------------------------- */
+
+    reply.send({
+      message: 'User registered successfully',
+      body: `Username: ${user.username}`
+    })
   })
 }
 
