@@ -4,12 +4,23 @@ const request = require('supertest');
 
 
 
-describe('GET /', function() {
+describe('POST /register', function() {
   it('return json response', function() {
     return request(app.server)
-      .get('/')
+      .post('/register')
+      .send({
+        username:'admin',
+        password:'admin'
+      })
       .expect(200)
       .expect('Content-Type',/json/)
-      .expect('{"hello":"world!!! thanks God"}')
+      .expect(response=>{
+
+        console.log(response.body);
+        expect(response.body.message).equal(
+          'User registered successfully'
+      )
+
+      })
   })
 })

@@ -3,6 +3,8 @@ import Fastify from 'fastify'
 import jwt from 'fastify-jwt'
 import login from './src/auth/login'
 import register from './src/auth/register'
+import profile from './src/auth/profile'
+import fastifyAuth from '@fastify/auth'
 
 
 
@@ -14,7 +16,9 @@ const app = Fastify({
 
 // Register the fastify-jwt plugin
 app.register(jwt, { secret: 'supersecret' })
+app.register(fastifyAuth)
 
+app.register(profile)
 app.register(login)
 app.register(register)
 

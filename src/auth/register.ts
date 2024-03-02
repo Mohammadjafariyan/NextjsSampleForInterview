@@ -7,8 +7,8 @@ async function hashPassword (password) {
 }
 
 async function register (fastify: any, options: any) {
-  fastify.get('/register', async (request, reply) => {
-    const { username, password } = request.query
+  fastify.post('/register', async (request, reply) => {
+    const { username, password } = request.body
 
     // Hash the password
     const hashedPassword = await hashPassword(password)
@@ -19,7 +19,7 @@ async function register (fastify: any, options: any) {
       `Username: ${username}, Hashed Password: ${hashedPassword}`
     )
 
-    reply.send({ message: 'User registered successfully' })
+    reply.send({ message: 'User registered successfully',body:`Username: ${username}, Hashed Password: ${hashedPassword}` })
   })
 }
 
