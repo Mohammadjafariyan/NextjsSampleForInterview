@@ -6,75 +6,98 @@ const ajv = new Ajv()
 
 // login users
 async function login (fastify: any, options: any) {
-  fastify.post('/login', async (request, reply) => {
-    /* ----------------------------------- */
-    /* data validation */
-    /* ----------------------------------- */
-
-    if (!validate(request.body)) {
-      // data is MyData here
-      console.log(validate.errors)
-
-      return {
-        message: 'Login Failed',
-        token: null,
-        validationErrors: validate.errors
+  fastify.post('/login', {
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          username: { type: 'string' },
+          password: { type: 'string' }
+        }
+      },
+      tags: ['auth'],
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            message: { type: 'string' },
+            token: { type: 'string' },
+            validationErrors: { type: 'string' }
+          }
+        }
       }
-    }
+    },
 
-    /* ----------------------------------- */
-    /* db connection */
-    /* ----------------------------------- */
-    const prisma = new PrismaClient()
+    handler: async (request, reply) => {
+      /* ----------------------------------- */
+      /* data validation */
+      /* ----------------------------------- */
 
-    /* ----------------------------------- */
-    /* search for user */
-    /* ----------------------------------- */
-    const user = await prisma.user.findFirst({
-      where: {
-        username: request.body.username
+      if (!validate(request.body)) {
+        // data is MyData here
+        console.log(validate.errors)
+
+        return {
+          message: 'Login Failed',
+          token: null,
+          validationErrors: validate.errors
+        }
       }
-    })
 
-    /* ----------------------------------- */
-    /* log */
-    /* ----------------------------------- */
-    console.log('user:', user)
-
-    /* ----------------------------------- */
-    /* if user is found and is password correct ?  */
-    /* ----------------------------------- */
-    let isPasswordCorrect = false
-
-    if (!user) {
-      isPasswordCorrect = false
-    } else {
-      isPasswordCorrect = await verifyPassword(
-        request.body.password,
-        user?.password
-      )
-    }
-
-    /* ----------------------------------- */
-    /* if user is found and is password correct ?  */
-    /* ----------------------------------- */
-    if (user && isPasswordCorrect) {
       /* ----------------------------------- */
-      /* sign in user */
+      /* db connection */
       /* ----------------------------------- */
-      const token = fastify.jwt.sign({ username: user.username })
+      const prisma = new PrismaClient()
 
-      return {
-        message: 'Login Successful',
-        token: token
+      /* ----------------------------------- */
+      /* search for user */
+      /* ----------------------------------- */
+      const user = await prisma.user.findFirst({
+        where: {
+          username: request.body.username
+        }
+      })
+
+      /* ----------------------------------- */
+      /* log */
+      /* ----------------------------------- */
+      console.log('user:', user)
+
+      /* ----------------------------------- */
+      /* if user is found and is password correct ?  */
+      /* ----------------------------------- */
+      let isPasswordCorrect = false
+
+      if (!user) {
+        isPasswordCorrect = false
+      } else {
+        isPasswordCorrect = await verifyPassword(
+          request.body.password,
+          user?.password
+        )
       }
-    } else {
+
       /* ----------------------------------- */
-      /* login failed */
+      /* if user is found and is password correct ?  */
       /* ----------------------------------- */
-      return {
-        message: 'Login Failed',
-        token: null
+      if (user && isPasswordCorrect) {
+        /* ----------------------------------- */
+        /* sign in user */
+        /* ----------------------------------- */
+        const token = fastify.jwt.sign({ username: user.username })
+
+        return {
+          message: 'Login Successful',
+          token: token
+        }
+      } else {
+        /* ----------------------------------- */
+        /* login failed */
+        /* ----------------------------------- */
+        return {
+          message: 'Login Failed',
+          token: null
+        }
       }
     }
   })
