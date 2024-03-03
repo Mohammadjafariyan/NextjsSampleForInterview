@@ -1,4 +1,5 @@
 import app from '../../server'
+import { DebugModeSingleton } from '../../src/util/constants';
 import { fakeNewUser } from '../fake-data.provider';
 const request = require('supertest');
 
@@ -9,7 +10,13 @@ const request = require('supertest');
     /* register test */
     /* ----------------------------------- */
 describe('POST /register', function() {
-  it('return json response', function() {
+
+    // for disabling swagger configuration during debug with mocha
+  DebugModeSingleton.getInstance().setDebugMode(true);
+
+
+  it('POST /register', function() {
+
 
 
     

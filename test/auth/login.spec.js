@@ -1,4 +1,5 @@
 import app from '../../server'
+import { DebugModeSingleton } from '../../src/util/constants';
 const request = require('supertest')
 
 /* ----------------------------------- */
@@ -6,7 +7,11 @@ const request = require('supertest')
 /* ----------------------------------- */
 
 describe('POST /login', function () {
-  it('return json response', function () {
+  
+    // for disabling swagger configuration during debug with mocha 
+    DebugModeSingleton.getInstance().setDebugMode(true);
+
+  it('POST /login', function () {
     console.log(
       '--------------------------------------------------------------'
     )

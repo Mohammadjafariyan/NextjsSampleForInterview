@@ -21,7 +21,7 @@ async function login (fastify: any, options: any) {
           type: 'object',
           properties: {
             message: { type: 'string' },
-            token: { type: 'string' },
+            token: { type: ['string', 'null'] },
             validationErrors: { type: 'string' }
           }
         }
