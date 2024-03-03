@@ -19,5 +19,6 @@ async function profile (fastify: any, options: any) {
   )
 }
 
+
 //ESM
 export default profile

@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import { hashPassword } from '../util/hashPassword'
 
+import Ajv, { JSONSchemaType } from 'ajv'
+const ajv = new Ajv()
 
 /* ----------------------------------- */
 /* register */
@@ -13,6 +15,21 @@ async function register (fastify: any, options: any) {
   fastify.post('/register', async (request, reply) => {
 
     
+     /* ----------------------------------- */
+    /* data validation */
+    /* ----------------------------------- */
+    if (!validate(request.body)) {
+      // data is MyData here
+      console.log(validate.errors)
+
+      return {
+        message: 'Login Failed',
+        token: null,
+        validationErrors: validate.errors
+      }
+    }
+
+
     /* ----------------------------------- */
     /* get data from body  */
     /* ----------------------------------- */
@@ -79,6 +96,28 @@ async function register (fastify: any, options: any) {
     })
   })
 }
+
+
+
+interface RegisterData {
+  username: string
+  password: string
+}
+
+const schema: JSONSchemaType<RegisterData> = {
+  type: 'object',
+  properties: {
+    username: { type: 'string' },
+    password: { type: 'string' }
+  },
+  required: ['username', 'password'],
+  additionalProperties: false
+}
+
+// validate is a type guard for MyData - type is inferred from schema type
+const validate = ajv.compile(schema)
+
+
 
 //ESM
 export default register
