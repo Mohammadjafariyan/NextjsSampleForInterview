@@ -6,7 +6,7 @@ I created the following branches using Git Flow:
 - `feature/api-implementation`
 - `feature/auth-system`
 
-unfortunately git flow deleted branches on git finish 
+unfortunately git flow deleted branches upon git finish 
 
 
 ## Tech Stack  
