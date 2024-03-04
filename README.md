@@ -30,7 +30,7 @@ include : ```dockerfile.dev``` , ```dockerfile ```, ```docker-compose.prod.yml `
 there are two docker compose files , one for development and the other for production mode 
 
 gif demo : 
-![App Screenshot](https://drive.google.com/file/d/1jfDS_DiJn7opbcxfe1DBhxOkwUldSTRm/view?usp=sharing)  
+![App Screenshot](https://plc-kar.ir/wp-content/uploads/demo.gif)  
 
 ##  Running with Docker ( Development Mode )
 it will start ```mysql``` , ```adminer``` in 8080 and ```localhost:3000``` then it
