@@ -37,7 +37,7 @@ it will start ```mysql``` , ```adminer``` in 8080 and ```localhost:3000``` then 
  will execute ```integration tests```
 
 you can change in docker compose files and .env in running outside of docker 
-docker compose files overrides .env 
+docker compose files override .env 
 
 Clone the project  
 
