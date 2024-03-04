@@ -1,0 +1,55 @@
+version: "3"
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: rootadminpass
+      MYSQL_DATABASE: uniplatodb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: adminpass
+    volumes:
+      - "./dbinit:/docker-entrypoint-initdb.d"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - /app/prisma
+      - .:/app
+      - ./nodemon.json:/app/nodemon.json
+    environment:
+       DATABASE_URL: 'mysql://admin:adminpass@db:3306/uniplatodb'
+       LD_LIBRARY_PATH: /usr/lib:/usr/local/lib 
+    #command: ["npx", "prisma", "generate"] # Set the library path
+    depends_on:
+      db:
+        condition: service_healthy
+        
+  tests:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /app/prisma
+      - /app/node_modules
+      - .:/app
+      - ./nodemon.json:/app/nodemon.json
+    command: [ "sh", "-c", "npx prisma generate && npx mocha" ]
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
