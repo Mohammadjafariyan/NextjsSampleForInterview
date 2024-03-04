@@ -102,6 +102,8 @@ npm run dev
 
 ## Run Locally ( Production Mode )
 
+Running locally only possible if you already have mysql and change db connection in .env file 
+
 Clone the project  
 
 ~~~bash  
