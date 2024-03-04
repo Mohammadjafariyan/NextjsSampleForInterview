@@ -29,7 +29,10 @@ include : ```dockerfile.dev``` , ```dockerfile ```, ```docker-compose.prod.yml `
 
 there are two docker compose files , one for development and the other for production mode 
 
-gif demo : 
+I captured a GIF while running with Docker  : 
+
+everything worked fine, all integration tests passed, and finally, I checked the database
+
 ![App Screenshot](https://plc-kar.ir/wp-content/uploads/demo.gif)  
 
 [Visit gif demo](https://plc-kar.ir/wp-content/uploads/demo.gif)
