@@ -1,18 +1,8 @@
 import app from '../../server'
+import { DebugModeSingleton } from '../../src/util/constants'
 import { hashPassword } from '../../src/util/hashPassword'
 import { fakeNewUser } from '../fake-data.provider'
 const request = require('supertest')
-
-/* ----------------------------------- */
-/* protection test */
-/* ----------------------------------- */
-it('should return 401 when not authenticated', async () => {
-  // Make a request to the protected route without authentication
-  const response = await request(app.server).get('/profile')
-
-  // Verify response status code
-  expect(response.status, 401)
-})
 
 /* ----------------------------------- */
 /* 1.register  */
@@ -20,7 +10,21 @@ it('should return 401 when not authenticated', async () => {
 /* 3.get profile */
 /* ----------------------------------- */
 describe('Profile  /profile', function () {
-  it('return json response', async function () {
+  // for disabling swagger configuration during debug with mocha
+  DebugModeSingleton.getInstance().setDebugMode(true);
+
+  /* ----------------------------------- */
+  /* protection test */
+  /* ----------------------------------- */
+  it('should return 401 when not authenticated', async () => {
+    // Make a request to the protected route without authentication
+    const response = await request(app.server).get('/profile')
+
+    // Verify response status code
+    expect(response.status, 401)
+  })
+
+  it('Profile  /profile', async function () {
     console.log(
       '--------------------------------------------------------------'
     )
@@ -33,9 +37,6 @@ describe('Profile  /profile', function () {
     /* register */
     /* -------------------------------------------------------------- */
 
-
-
-    
     /* ----------------------------------- */
     /* generate fake data */
     /* ----------------------------------- */
@@ -45,8 +46,6 @@ describe('Profile  /profile', function () {
     console.warn('.................register.................')
 
     console.log(user)
-
-
 
     /* ----------------------------------- */
     /* post request with fake data */

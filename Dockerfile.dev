@@ -1,4 +1,4 @@
-FROM node:20.11.1-slim
+FROM node:hydrogen-alpine3.18 as builder
 
 WORKDIR '/app'
 
@@ -8,7 +8,17 @@ RUN npm install
 # Copy Prisma schema and run migrations
 COPY prisma ./prisma
 COPY .env .
-#RUN npx prisma migrate dev
+#RUN npx prisma generate
+
+# Install OpenSSL
+#RUN apt-get update && apt-get install -y openssl
+
+# Set the library path
+ENV LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
 
 
+CMD ["npx", "prisma", "generate"]
+
+
+FROM builder
 CMD ["npm", "run", "dev"]
