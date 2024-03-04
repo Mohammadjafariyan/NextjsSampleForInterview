@@ -18,7 +18,7 @@ unfortunately git flow deleted branches upon git finish
 ## Features  
 - docker debug and production mode  
 - integration tests with mocha and supertest 
-- mysql adminer in 8080 
+- mysql adminer in 8080 you can change in docker compose files
 - project will run at 3000 but you can change ```.env``` file or dockerfiles
 include : ```dockerfile.dev``` , ```dockerfile ```, ```docker-compose.prod.yml ```,
 ``` docker-compose.dev.yml```
@@ -35,6 +35,9 @@ gif demo :
 ##  Running with Docker ( Development Mode )
 it will start ```mysql``` , ```adminer``` in 8080 and ```localhost:3000``` then it
  will execute ```integration tests```
+
+you can change in docker compose files and .env in running outside of docker 
+docker compose files overrides .env 
 
 Clone the project  
 
