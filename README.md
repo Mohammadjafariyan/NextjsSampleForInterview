@@ -31,6 +31,9 @@ there are two docker compose files , one for development and the other for produ
 
 gif demo : 
 ![App Screenshot](https://plc-kar.ir/wp-content/uploads/demo.gif)  
+[Visit gif demo]((https://plc-kar.ir/wp-content/uploads/demo.gif))
+[Visit gif demo second link]((https://drive.google.com/file/d/1jfDS_DiJn7opbcxfe1DBhxOkwUldSTRm/view?usp=sharing))
+
 
 ##  Running with Docker ( Development Mode )
 it will start ```mysql``` , ```adminer``` in 8080 and ```localhost:3000``` then it
