@@ -22,8 +22,7 @@ include : ```dockerfile.dev``` , ```dockerfile ```, ```docker-compose.prod.yml `
 
 there are two docker compose files , one for development and the other for production mode 
 
-[![Video Demo]()](docs/video/demo.gif)
-
+gif demo : 
 ![App Screenshot](docs/video/demo.gif)  
 
 ##  Running with Docker ( Development Mode )
