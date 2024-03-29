@@ -50,13 +50,13 @@ docker compose files override .env
 Clone the project  
 
 ~~~bash  
-  git clone https://github.com/Mohammadjafariyan/uniplatoInterview
+  git clone https://github.com/Mohammadjafariyan/NextjsSampleForInterview
 ~~~
 
 Go to the project directory  
 
 ~~~bash  
-  cd uniplatoInterview
+  cd NextjsSampleForInterview
 ~~~
 
 Install dependencies  
@@ -73,13 +73,13 @@ it will start ```mysql``` , ```adminer``` in 8080 and ```localhost:3000``` then 
 Clone the project  
 
 ~~~bash  
-  git clone https://github.com/Mohammadjafariyan/uniplatoInterview
+  git clone https://github.com/Mohammadjafariyan/NextjsSampleForInterview
 ~~~
 
 Go to the project directory  
 
 ~~~bash  
-  cd uniplatoInterview
+  cd NextjsSampleForInterview
 ~~~
 
 Install dependencies  
@@ -95,13 +95,13 @@ docker-compose -f docker-compose.prod.yml up --build
 Clone the project  
 
 ~~~bash  
-  git clone https://github.com/Mohammadjafariyan/uniplatoInterview
+  git clone https://github.com/Mohammadjafariyan/NextjsSampleForInterview
 ~~~
 
 Go to the project directory  
 
 ~~~bash  
-  cd uniplatoInterview
+  cd NextjsSampleForInterview
 ~~~
 
 Install dependencies  
@@ -125,13 +125,13 @@ Running locally only possible if you already have mysql and change db connection
 Clone the project  
 
 ~~~bash  
-  git clone https://github.com/Mohammadjafariyan/uniplatoInterview
+  git clone https://github.com/Mohammadjafariyan/NextjsSampleForInterview
 ~~~
 
 Go to the project directory  
 
 ~~~bash  
-  cd my-project
+  cd NextjsSampleForInterview
 ~~~
 
 Install dependencies  
